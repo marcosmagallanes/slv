@@ -1,0 +1,33 @@
+---
+import Search from '../components/icons/Search.astro'
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body class="*:p-3 *:pb-0">
+    <header class="flex justify-between">
+      <h1>title</h1>
+      <nav class="flex gap-3 uppercase">
+        <a href="/">home</a>
+        <a href="/restaurants">restaurants</a>
+        <a href="/blog">blog</a>
+        <a href="/about">about</a>
+        <a href="/contact">contact</a>
+        <button><Search /></button>
+      </nav>
+    </header>
+    <main>
+    
+    </main>
+    <footer>
+    
+    </footer>
+		<slot />
+	</body>
+</html>
