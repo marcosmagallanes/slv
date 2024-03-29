@@ -1,32 +1,18 @@
 ---
-import Search from '../components/icons/Search.astro'
+import Header from "../components/Header.astro";
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body class="*:p-3 *:pb-0">
-    <header class="flex justify-between">
-      <a href="/">home</a>
-      <nav class="flex gap-2 uppercase">
-        <a href="/restaurants">restaurants</a>
-        <a href="/blog">blog</a>
-        <a href="/about">about</a>
-        <a href="/contact">contact</a>
-        <button><Search /></button>
-      </nav>
-    </header>
-    <main>
-    
-    </main>
-    <footer>
-    
-    </footer>
-		<slot />
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body class="grid *:p-3">
+    <Header />
+    <main class="bg-stone-100 min-h-screen"><slot /></main>
+    <footer></footer>
+  </body>
 </html>

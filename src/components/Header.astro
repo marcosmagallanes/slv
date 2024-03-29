@@ -1,0 +1,39 @@
+---
+import Menu from "../components/icons/Menu.astro";
+import Search from "../components/icons/Search.astro";
+---
+
+<Fragment>
+  <header class="h-16 flex justify-between items-center">
+    <a href="/">home</a>
+    <nav class="flex gap-2 uppercase">
+      <ul class="hidden md:flex gap-2">
+        <li><a href="/restaurants">restaurants</a></li>
+        <li><a href="/blog">blog</a></li>
+        <li><a href="/about">about</a></li>
+        <li><a href="/contact">contact</a></li>
+      </ul>
+      <Search />
+      <button id="menu-button" class="md:hidden"><Menu /></button>
+    </nav>
+  </header>
+  <!-- mobile menu -->
+  <aside class="!p-0 md:hidden uppercase">
+    <nav id="menu" class="divide-y border w-full flex-col *:p-3 hidden">
+      <a href="/restaurants">restaurants</a>
+      <a href="/blog">blog</a>
+      <a href="/about">about</a>
+      <a href="/contact">contact</a>
+    </nav>
+  </aside>
+</Fragment>
+
+<script>
+  const menuButton = document.getElementById("menu-button");
+  const menu = document.getElementById("menu");
+
+  menuButton?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
+    menu?.classList.toggle("flex");
+  });
+</script>
