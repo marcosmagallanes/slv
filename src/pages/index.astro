@@ -1,8 +1,92 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro'
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+import "@fontsource/montserrat-alternates";
+
+const collection = await getCollection("restaurant");
+const featured = collection.filter((restaurant) => restaurant.data.featured);
+const restaurants = collection.filter(
+  (restaurant) => !restaurant.data.featured
+);
 ---
 
+<BaseLayout class="grid justify-items-center">
+  <article class="text-center prose divide-y grid gap-5 py-9">
+    <section class="!inline">
+      <h1>Salt Lake Vegan</h1>
+      <h2>All Things Vegan in Salt Lake City</h2>
+    </section>
 
-<BaseLayout>
-	<h1>Astro</h1>
+    <section>
+      <h3>Featured</h3>
+      <ul>
+        {
+          featured.map((restaurant) => (
+            <li class="grid gap-3 justify-items-center">
+              <img
+                src={restaurant.data.image}
+                alt={restaurant.data.title}
+                class="w-11/12 h-48 object-cover border shadow-[10px_10px_0px_1px_rgba(0,0,0,0.07)] rounded-lg mb-5"
+              />
+              <span class="text-2xl font-bold">{restaurant.data.title}</span>
+              <p>{restaurant.data.description}</p>
+              <a
+                class="flex items-center h-12 bg-emerald-500 no-underline p-3 rounded-3xl text-white"
+                href={restaurant.slug}>
+                Learn More →
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section>
+      <h3>Restaurants</h3>
+      <ul>
+        {
+          restaurants.map((restaurant) => (
+            <li class="grid gap-3 justify-items-center">
+              <img
+                src={restaurant.data.image}
+                alt={restaurant.data.title}
+                class="w-11/12 h-48 object-cover border shadow-[10px_10px_0px_1px_rgba(0,0,0,0.07)] rounded-lg mb-5"
+              />
+              <span class="text-2xl font-bold">{restaurant.data.title}</span>
+              <p>{restaurant.data.description}</p>
+              <a
+                class="flex items-center h-12 bg-emerald-500 no-underline p-3 rounded-3xl text-white"
+                href={restaurant.slug}>
+                Learn More →
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </article>
+  <section
+    class="bg-cover bg-center gap-5 bg-no-repeat h-96 !grid place-content-center text-center divide-emerald-500 relative p-3 bg-blend-overlay bg-stone-800 text-white"
+    style="background-image: url('/src/assets/salt-lake-city-mountains.jpg')">
+    <h2 class="text-4xl font-bold font-['Montserrat Alternates'] uppercase">
+      Vegan in Salt Lake City
+    </h2>
+    <hr />
+    <p>
+      Whether you're a lifelong vegan or simply looking to explore the world of
+      plant-based eating, Salt Lake Vegan is the perfect resource for you. We
+      offer a wealth of information on local vegan restaurants, cafes, and food
+      trucks, as well as recommendations from fellow vegan food enthusiasts.
+    </p>
+  </section>
 </BaseLayout>
+
+<style lang="postcss">
+  section {
+    @apply grid justify-items-center
+  }
+  ul {
+	@apply w-3/4 grid grid-cols-1 md:grid-cols-2 gap-5 p-0
+  }
+</style>

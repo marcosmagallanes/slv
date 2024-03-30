@@ -1,5 +1,8 @@
 ---
 import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const { class: className } = Astro.props;
 ---
 
 <html lang="en">
@@ -12,7 +15,9 @@ import Header from "../components/Header.astro";
   </head>
   <body class="grid *:p-3">
     <Header />
-    <main class="bg-stone-100 min-h-screen"><slot /></main>
-    <footer></footer>
+    <main class:list={["bg-stone-100 min-h-screen !p-0", className]}>
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>
