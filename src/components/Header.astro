@@ -1,39 +1,43 @@
 ---
-import Menu from "../components/icons/Menu.astro";
-import Search from "../components/icons/Search.astro";
+import Menu from "./icons/Menu.astro";
+import Search from "./icons/Search.svelte";
+
+import { Image } from "astro:assets";
+import logo from "../assets/salt-lake-vegan.png";
+
+import { getCollection } from "astro:content";
+const posts = await getCollection("restaurant");
+
+const isCurrentPage = (pathname) =>
+  Astro.url.pathname === pathname ? "text-emerald-500" : "";
 ---
 
-<Fragment>
-  <header class="h-16 flex justify-between items-center">
+<!-- Header -->
+<header class="h-16 flex justify-between items-center">
+  <a href="/"><Image class="w-24" src={logo} alt="Salt Lake Vegan" /></a>
+  <nav class="flex gap-9 uppercase">
+    <ul class="hidden md:flex gap-9">
+      <li><a class={isCurrentPage("/")} href="/">home</a></li>
+      <li>
+        <a class={isCurrentPage("/restaurants")} href="/restaurants"
+          >restaurants</a
+        >
+      </li>
+      <li><a class={isCurrentPage("/about")} href="/about">about</a></li>
+      <li><a class={isCurrentPage("/contact")} href="/contact">contact</a></li>
+    </ul>
+    <Search client:load postList={posts} />
+    <button id="menu-button" class="md:hidden"><Menu /></button>
+  </nav>
+</header>
+
+<!-- Mobile -->
+
+<aside class="!p-0 md:hidden uppercase">
+  <nav id="menu" class="divide-y border w-full flex-col *:p-3 hidden">
     <a href="/">home</a>
-    <nav class="flex gap-2 uppercase">
-      <ul class="hidden md:flex gap-2">
-        <li><a href="/restaurants">restaurants</a></li>
-        <li><a href="/blog">blog</a></li>
-        <li><a href="/about">about</a></li>
-        <li><a href="/contact">contact</a></li>
-      </ul>
-      <Search />
-      <button id="menu-button" class="md:hidden"><Menu /></button>
-    </nav>
-  </header>
-  <!-- mobile menu -->
-  <aside class="!p-0 md:hidden uppercase">
-    <nav id="menu" class="divide-y border w-full flex-col *:p-3 hidden">
-      <a href="/restaurants">restaurants</a>
-      <a href="/blog">blog</a>
-      <a href="/about">about</a>
-      <a href="/contact">contact</a>
-    </nav>
-  </aside>
-</Fragment>
-
-<script>
-  const menuButton = document.getElementById("menu-button");
-  const menu = document.getElementById("menu");
-
-  menuButton?.addEventListener("click", () => {
-    menu?.classList.toggle("hidden");
-    menu?.classList.toggle("flex");
-  });
-</script>
+    <a href="/restaurants">restaurants</a>
+    <a href="/about">about</a>
+    <a href="/contact">contact</a>
+  </nav>
+</aside>

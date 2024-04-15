@@ -1,6 +1,11 @@
 ---
 import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+
+import Facebook from "../components/icons/Facebook.astro";
+import Instagram from "../components/icons/Instagram.astro";
+
+import { Image } from "astro:assets";
+import logoSmall from "../assets/slv-logo.png";
 
 const { class: className } = Astro.props;
 ---
@@ -11,13 +16,53 @@ const { class: className } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>Salt Lake Vegan</title>
   </head>
   <body class="grid *:p-3">
     <Header />
-    <main class:list={["bg-stone-100 min-h-screen !p-0", className]}>
-      <slot />
+
+    <!-- Main -->
+
+    <main class="grid justify-items-center bg-stone-100 !p-0">
+      <article class="text-center divide-y grid gap-5">
+        <slot />
+      </article>
     </main>
-    <Footer />
+
+    <!-- Footer -->
+
+    <footer
+      class="grid justify-items-center text-center bg-[#14261C] text-white gap-3 !p-9">
+      <ul class="flex gap-5 uppercase">
+        <li><a href="/">home</a></li>
+        <li><a href="/restaurants">restaurants</a></li>
+        <li><a href="/about">about</a></li>
+        <li><a href="/contact">contact</a></li>
+      </ul>
+      <a href="/"
+        ><Image class="w-24" src={logoSmall} alt="Salt Lake Vegan" /></a
+      >
+      <section class="flex gap-5">
+        <a href="https://www.instagram.com/SaltLake.Vegan/"><Instagram /></a>
+        <a href="https://www.facebook.com/SaltLakeVegan"><Facebook /></a>
+      </section>
+      <p>Copyright © {new Date().getFullYear()} Salt Lake Vegan</p>
+    </footer>
   </body>
 </html>
+
+<script>
+  const menuButton = document.getElementById("menu-button");
+  const menu = document.getElementById("menu");
+
+  menuButton?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
+    menu?.classList.toggle("flex");
+  });
+</script>
+
+<style is:global lang="postcss">
+  hr {
+    @apply !border-[#1BAE70] border-[3px] w-1/5 rounded;
+  }
+</style>
